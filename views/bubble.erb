@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="bubble_style.css">
+<script type="text/javascript" src="bubble_script.js"></script>
+
+<% File.open("guestbook.txt", "a") do |f| 
+  f.puts "#{params[:username]}: #{params[:comment]}" if params[:username] && params[:comment]
+  end
+%>
+
+<h1>Bubble Trouble Guestbook</h1>
+
+<form action="/bubble" method="POST">
+  <label for="name"> Name: </label>
+  <input name="username" type="text">
+  <br>
+  <label for="comment"> Comment: </label>
+  <input name="comment" type="text">
+  <br>
+  <button>Submit!</button>
+</form>
+
+<h2>All comments: </h2>
+
+<%
+File.open("guestbook.txt", "r") do |f|
+  f.each_line do |line| %>
+    <%= line %>
+    <br>
+    <br>
+  <% end
+end
+%>
